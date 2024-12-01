@@ -1,0 +1,10 @@
+query getEntitiesData {
+	entity {
+		id
+		title
+		documents {
+			id
+			title
+		}
+	}
+}
