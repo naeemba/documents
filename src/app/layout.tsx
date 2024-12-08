@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import dotenv from "dotenv";
+import { ThemeProvider } from "@/components/theme/provider";
+import { ModeToggle as ThemeToggle } from "@/components/theme/toggle";
 
 dotenv.config();
 
@@ -31,7 +33,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <div className="absolute left-4 bottom-4">
+            <ThemeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
