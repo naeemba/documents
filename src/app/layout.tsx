@@ -4,6 +4,8 @@ import "./globals.css";
 import dotenv from "dotenv";
 import { ThemeProvider } from "@/components/theme/provider";
 import { ModeToggle as ThemeToggle } from "@/components/theme/toggle";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/side-bar";
 
 dotenv.config();
 
@@ -39,7 +41,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SidebarProvider>
+            <AppSidebar />
+            <main>
+              <SidebarTrigger />
+              {children}
+            </main>
+          </SidebarProvider>
           <div className="absolute left-4 bottom-4">
             <ThemeToggle />
           </div>
