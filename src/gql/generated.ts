@@ -1411,6 +1411,7 @@ export type GetEntitiesDataQuery = {
     __typename?: "entity";
     id: string;
     title?: string | null;
+    color?: string | null;
     documents?: Array<{
       __typename?: "document";
       id: string;
@@ -1424,6 +1425,7 @@ export const GetEntitiesDataDocument = gql`
     entity {
       id
       title
+      color
       documents {
         id
         title
