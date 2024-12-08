@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import dotenv from "dotenv";
 import { ThemeProvider } from "@/components/theme/provider";
-import { ModeToggle as ThemeToggle } from "@/components/theme/toggle";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/side-bar";
 
@@ -44,13 +43,10 @@ export default function RootLayout({
           <SidebarProvider>
             <AppSidebar />
             <main>
-              <SidebarTrigger />
+              <SidebarTrigger className="ml-2 mt-2" />
               {children}
             </main>
           </SidebarProvider>
-          <div className="absolute left-4 bottom-4">
-            <ThemeToggle />
-          </div>
         </ThemeProvider>
       </body>
     </html>

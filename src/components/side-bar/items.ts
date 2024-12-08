@@ -8,17 +8,17 @@ export const items = [
   },
   {
     title: "Entities",
-    url: "/",
+    url: "/entities",
     icon: FolderKanban,
   },
   {
     title: "Documents",
-    url: "/",
+    url: "/documents",
     icon: File,
   },
   {
     title: "Document Categories",
-    url: "/",
+    url: "/document-categories",
     icon: Tag,
   },
 ];
