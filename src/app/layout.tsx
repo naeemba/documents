@@ -42,8 +42,8 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <AppSidebar />
-            <main>
-              <SidebarTrigger className="ml-2 mt-2" />
+            <main className="pl-8 pt-16 relative w-full pr-8">
+              <SidebarTrigger className="absolute left-2 top-2" />
               {children}
             </main>
           </SidebarProvider>

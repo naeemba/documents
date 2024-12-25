@@ -1403,6 +1403,24 @@ export type Version_User = {
   username?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type EntityFragment = {
+  __typename?: "entity";
+  id: string;
+  status?: string | null;
+  sort?: number | null;
+  user_created?: string | null;
+  user_updated?: string | null;
+  date_created?: any | null;
+  date_updated?: any | null;
+  title?: string | null;
+  color?: string | null;
+  no?: string | null;
+  productionYear?: number | null;
+  race?: string | null;
+  height?: number | null;
+  weight?: number | null;
+};
+
 export type GetEntitiesDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetEntitiesDataQuery = {
@@ -1410,28 +1428,47 @@ export type GetEntitiesDataQuery = {
   entity: Array<{
     __typename?: "entity";
     id: string;
+    status?: string | null;
+    sort?: number | null;
+    user_created?: string | null;
+    user_updated?: string | null;
+    date_created?: any | null;
+    date_updated?: any | null;
     title?: string | null;
     color?: string | null;
-    documents?: Array<{
-      __typename?: "document";
-      id: string;
-      title?: string | null;
-    } | null> | null;
+    no?: string | null;
+    productionYear?: number | null;
+    race?: string | null;
+    height?: number | null;
+    weight?: number | null;
   }>;
 };
 
+export const EntityFragmentDoc = gql`
+  fragment Entity on entity {
+    id
+    status
+    sort
+    user_created
+    user_updated
+    date_created
+    date_updated
+    title
+    color
+    no
+    productionYear
+    race
+    height
+    weight
+  }
+`;
 export const GetEntitiesDataDocument = gql`
   query getEntitiesData {
     entity {
-      id
-      title
-      color
-      documents {
-        id
-        title
-      }
+      ...Entity
     }
   }
+  ${EntityFragmentDoc}
 `;
 
 export type SdkFunctionWrapper = <T>(

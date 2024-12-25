@@ -1,11 +1,5 @@
 query getEntitiesData {
 	entity {
-		id
-		title
-		color
-		documents {
-			id
-			title
-		}
+		...Entity
 	}
 }

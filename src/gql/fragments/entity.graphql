@@ -1,0 +1,16 @@
+fragment Entity on entity {
+    id
+    status
+    sort
+    user_created
+    user_updated
+    date_created
+    date_updated
+    title
+    color
+    no
+    productionYear
+    race
+    height
+    weight
+}
