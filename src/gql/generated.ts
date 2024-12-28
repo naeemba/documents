@@ -1421,6 +1421,15 @@ export type EntityFragment = {
   weight?: number | null;
 };
 
+export type CreateEntityMutationVariables = Exact<{
+  entity: Create_Entity_Input;
+}>;
+
+export type CreateEntityMutation = {
+  __typename?: "Mutation";
+  create_entity_item?: { __typename?: "entity"; id: string } | null;
+};
+
 export type GetEntitiesDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetEntitiesDataQuery = {
@@ -1462,6 +1471,13 @@ export const EntityFragmentDoc = gql`
     weight
   }
 `;
+export const CreateEntityDocument = gql`
+  mutation createEntity($entity: create_entity_input!) {
+    create_entity_item(data: $entity) {
+      id
+    }
+  }
+`;
 export const GetEntitiesDataDocument = gql`
   query getEntitiesData {
     entity {
@@ -1490,6 +1506,22 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
+    createEntity(
+      variables: CreateEntityMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<CreateEntityMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<CreateEntityMutation>(
+            CreateEntityDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        "createEntity",
+        "mutation",
+        variables,
+      );
+    },
     getEntitiesData(
       variables?: GetEntitiesDataQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,

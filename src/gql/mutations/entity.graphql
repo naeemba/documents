@@ -1,0 +1,5 @@
+mutation createEntity($entity: create_entity_input!) {
+    create_entity_item(data: $entity) {
+        id
+    }
+}
