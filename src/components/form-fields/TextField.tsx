@@ -6,13 +6,13 @@ import { Input } from "../ui/input";
 type Props = {
   label: string;
   name: string;
-  defaultValue?: string;
+  defaultValue?: string | null;
   errors?: string[];
 };
 
 const TextField = (props: Props) => {
   const { label, name, defaultValue, errors } = props;
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue ?? "");
   return (
     <FormItem>
       <Label htmlFor={name}>{label}</Label>

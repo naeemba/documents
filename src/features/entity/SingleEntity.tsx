@@ -9,6 +9,7 @@ const SingleEntity = ({ entity }: Props) => {
   return (
     <div>
       <InfoCard
+        baseUrl={`/entities/${entity.id}`}
         title={
           <>
             <span className="text-muted-foreground">View Entity</span>&nbsp;

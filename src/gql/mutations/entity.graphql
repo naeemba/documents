@@ -3,3 +3,9 @@ mutation createEntity($entity: create_entity_input!) {
         id
     }
 }
+
+mutation updateEntity($id: ID!, $entity: update_entity_input!) {
+    update_entity_item(id: $id, data: $entity) {
+        id
+    }
+}

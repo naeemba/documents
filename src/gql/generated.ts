@@ -1430,6 +1430,16 @@ export type CreateEntityMutation = {
   create_entity_item?: { __typename?: "entity"; id: string } | null;
 };
 
+export type UpdateEntityMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+  entity: Update_Entity_Input;
+}>;
+
+export type UpdateEntityMutation = {
+  __typename?: "Mutation";
+  update_entity_item?: { __typename?: "entity"; id: string } | null;
+};
+
 export type GetEntitiesDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetEntitiesDataQuery = {
@@ -1503,6 +1513,13 @@ export const CreateEntityDocument = gql`
     }
   }
 `;
+export const UpdateEntityDocument = gql`
+  mutation updateEntity($id: ID!, $entity: update_entity_input!) {
+    update_entity_item(id: $id, data: $entity) {
+      id
+    }
+  }
+`;
 export const GetEntitiesDataDocument = gql`
   query getEntitiesData {
     entity {
@@ -1551,6 +1568,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         "createEntity",
+        "mutation",
+        variables,
+      );
+    },
+    updateEntity(
+      variables: UpdateEntityMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateEntityMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateEntityMutation>(
+            UpdateEntityDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        "updateEntity",
         "mutation",
         variables,
       );
