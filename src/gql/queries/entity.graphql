@@ -3,3 +3,9 @@ query getEntitiesData {
 		...Entity
 	}
 }
+
+query getSingleEntity($id: String!) {
+	entity(filter: { id: { _eq: $id } }) {
+		...Entity
+	}
+}

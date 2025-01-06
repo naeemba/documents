@@ -1,4 +1,5 @@
 "use client";
+
 import {
   ColumnDef,
   flexRender,
@@ -14,21 +15,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  baseUrl: string;
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
   data,
+  baseUrl,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const router = useRouter();
 
   return (
     <div className="rounded-md border">
@@ -57,6 +63,8 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => router.push(`${baseUrl}/${row.original.id}`)}
+                className="cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

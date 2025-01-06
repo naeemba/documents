@@ -1453,6 +1453,31 @@ export type GetEntitiesDataQuery = {
   }>;
 };
 
+export type GetSingleEntityQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+}>;
+
+export type GetSingleEntityQuery = {
+  __typename?: "Query";
+  entity: Array<{
+    __typename?: "entity";
+    id: string;
+    status?: string | null;
+    sort?: number | null;
+    user_created?: string | null;
+    user_updated?: string | null;
+    date_created?: any | null;
+    date_updated?: any | null;
+    title?: string | null;
+    color?: string | null;
+    no?: string | null;
+    productionYear?: number | null;
+    race?: string | null;
+    height?: number | null;
+    weight?: number | null;
+  }>;
+};
+
 export const EntityFragmentDoc = gql`
   fragment Entity on entity {
     id
@@ -1481,6 +1506,14 @@ export const CreateEntityDocument = gql`
 export const GetEntitiesDataDocument = gql`
   query getEntitiesData {
     entity {
+      ...Entity
+    }
+  }
+  ${EntityFragmentDoc}
+`;
+export const GetSingleEntityDocument = gql`
+  query getSingleEntity($id: String!) {
+    entity(filter: { id: { _eq: $id } }) {
       ...Entity
     }
   }
@@ -1534,6 +1567,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         "getEntitiesData",
+        "query",
+        variables,
+      );
+    },
+    getSingleEntity(
+      variables: GetSingleEntityQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetSingleEntityQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetSingleEntityQuery>(
+            GetSingleEntityDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        "getSingleEntity",
         "query",
         variables,
       );

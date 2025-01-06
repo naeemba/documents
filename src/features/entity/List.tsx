@@ -22,7 +22,7 @@ const List = (props: Props) => {
         </Link>
       </div>
       <div className="mt-8">
-        <DataTable data={entities} columns={columns} />
+        <DataTable data={entities} columns={columns} baseUrl="/entities" />
       </div>
     </div>
   );
