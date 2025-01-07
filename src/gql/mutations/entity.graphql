@@ -9,3 +9,9 @@ mutation updateEntity($id: ID!, $entity: update_entity_input!) {
         id
     }
 }
+
+mutation deleteEntity($id: ID!) {
+    delete_entity_item(id: $id) {
+        id
+    }
+}

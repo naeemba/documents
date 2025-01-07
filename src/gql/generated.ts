@@ -1440,6 +1440,15 @@ export type UpdateEntityMutation = {
   update_entity_item?: { __typename?: "entity"; id: string } | null;
 };
 
+export type DeleteEntityMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+}>;
+
+export type DeleteEntityMutation = {
+  __typename?: "Mutation";
+  delete_entity_item?: { __typename?: "delete_one"; id: string } | null;
+};
+
 export type GetEntitiesDataQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetEntitiesDataQuery = {
@@ -1520,6 +1529,13 @@ export const UpdateEntityDocument = gql`
     }
   }
 `;
+export const DeleteEntityDocument = gql`
+  mutation deleteEntity($id: ID!) {
+    delete_entity_item(id: $id) {
+      id
+    }
+  }
+`;
 export const GetEntitiesDataDocument = gql`
   query getEntitiesData {
     entity {
@@ -1584,6 +1600,22 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         "updateEntity",
+        "mutation",
+        variables,
+      );
+    },
+    deleteEntity(
+      variables: DeleteEntityMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DeleteEntityMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteEntityMutation>(
+            DeleteEntityDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        "deleteEntity",
         "mutation",
         variables,
       );

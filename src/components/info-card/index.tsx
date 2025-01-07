@@ -1,30 +1,21 @@
 import { ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { PencilIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
 
 type Props = {
   title: ReactNode;
   items: { key: string; label: string; value?: string | null }[];
-  baseUrl: string;
+  actions?: ReactNode[];
 };
 
-const InfoCard = ({ title, items, baseUrl }: Props) => {
+const InfoCard = ({ title, items, actions }: Props) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="relative">
           {title}
-          <Link href={`${baseUrl}/edit`}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="absolute right-0 top-0 w-8 h-8"
-            >
-              <PencilIcon className="w-4 h-4" />
-            </Button>
-          </Link>
+          {Boolean(actions?.length) && (
+            <div className="absolute right-0 top-0 flex gap-2">{actions}</div>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent
