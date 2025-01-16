@@ -1,12 +1,12 @@
 "use client";
 
-import { createEntity } from "@/app/entities/actions/create";
+import { createEntity } from "@/app/(protected)/entities/actions/create";
 import { Button } from "@/components/ui/button";
 import { useActionState } from "react";
 import { FormActionState } from "./types";
 import TextField from "@/components/form-fields/TextField";
 import { EntityFragment } from "@/gql/generated";
-import { updateEntity } from "@/app/entities/actions/update";
+import { updateEntity } from "@/app/(protected)/entities/actions/update";
 
 const initialState: FormActionState = {};
 

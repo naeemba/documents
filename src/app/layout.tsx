@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import dotenv from "dotenv";
 import { ThemeProvider } from "@/components/theme/provider";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/side-bar";
 
 dotenv.config();
 
@@ -40,13 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="pl-8 pt-16 relative w-full pr-8">
-              <SidebarTrigger className="absolute left-2 top-2" />
-              {children}
-            </main>
-          </SidebarProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteEntity } from "@/app/entities/actions/delete";
+import { deleteEntity } from "@/app/(protected)/entities/actions/delete";
 import { Button } from "@/components/ui/button";
 import { confirm } from "@/lib/confirm";
 import { XIcon } from "lucide-react";

@@ -8,10 +8,11 @@ type Props = {
   name: string;
   defaultValue?: string | null;
   errors?: string[];
+  type?: "password" | "text";
 };
 
 const TextField = (props: Props) => {
-  const { label, name, defaultValue, errors } = props;
+  const { label, name, defaultValue, errors, type = "text" } = props;
   const [value, setValue] = useState(defaultValue ?? "");
   return (
     <FormItem>
@@ -21,6 +22,7 @@ const TextField = (props: Props) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={label}
+        type={type}
       />
       {errors && <p className="text-red-600 text-xs">{errors.join(",")}</p>}
     </FormItem>
