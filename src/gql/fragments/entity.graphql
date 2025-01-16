@@ -2,8 +2,16 @@ fragment Entity on entity {
     id
     status
     sort
-    user_created
-    user_updated
+    user_created {
+        id
+        first_name
+        last_name
+    }
+    user_updated {
+        id
+        first_name
+        last_name
+    }
     date_created
     date_updated
     title

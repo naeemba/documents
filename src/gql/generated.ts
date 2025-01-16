@@ -50,8 +50,6 @@ export type Mutation = {
   create_document_items: Array<Document>;
   create_entity_item?: Maybe<Entity>;
   create_entity_items: Array<Entity>;
-  create_user_item?: Maybe<User>;
-  create_user_items: Array<User>;
   delete_documentCategory_item?: Maybe<Delete_One>;
   delete_documentCategory_items?: Maybe<Delete_Many>;
   delete_documentItem_item?: Maybe<Delete_One>;
@@ -60,8 +58,6 @@ export type Mutation = {
   delete_document_items?: Maybe<Delete_Many>;
   delete_entity_item?: Maybe<Delete_One>;
   delete_entity_items?: Maybe<Delete_Many>;
-  delete_user_item?: Maybe<Delete_One>;
-  delete_user_items?: Maybe<Delete_Many>;
   update_documentCategory_batch: Array<DocumentCategory>;
   update_documentCategory_item?: Maybe<DocumentCategory>;
   update_documentCategory_items: Array<DocumentCategory>;
@@ -74,9 +70,6 @@ export type Mutation = {
   update_entity_batch: Array<Entity>;
   update_entity_item?: Maybe<Entity>;
   update_entity_items: Array<Entity>;
-  update_user_batch: Array<User>;
-  update_user_item?: Maybe<User>;
-  update_user_items: Array<User>;
 };
 
 export type MutationCreate_DocumentCategory_ItemArgs = {
@@ -135,20 +128,6 @@ export type MutationCreate_Entity_ItemsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
 };
 
-export type MutationCreate_User_ItemArgs = {
-  data: Create_User_Input;
-};
-
-export type MutationCreate_User_ItemsArgs = {
-  data?: InputMaybe<Array<Create_User_Input>>;
-  filter?: InputMaybe<User_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
 export type MutationDelete_DocumentCategory_ItemArgs = {
   id: Scalars["ID"]["input"];
 };
@@ -178,14 +157,6 @@ export type MutationDelete_Entity_ItemArgs = {
 };
 
 export type MutationDelete_Entity_ItemsArgs = {
-  ids: Array<InputMaybe<Scalars["ID"]["input"]>>;
-};
-
-export type MutationDelete_User_ItemArgs = {
-  id: Scalars["ID"]["input"];
-};
-
-export type MutationDelete_User_ItemsArgs = {
   ids: Array<InputMaybe<Scalars["ID"]["input"]>>;
 };
 
@@ -293,32 +264,6 @@ export type MutationUpdate_Entity_ItemsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
 };
 
-export type MutationUpdate_User_BatchArgs = {
-  data?: InputMaybe<Array<Update_User_Input>>;
-  filter?: InputMaybe<User_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type MutationUpdate_User_ItemArgs = {
-  data: Update_User_Input;
-  id: Scalars["ID"]["input"];
-};
-
-export type MutationUpdate_User_ItemsArgs = {
-  data: Update_User_Input;
-  filter?: InputMaybe<User_Filter>;
-  ids: Array<InputMaybe<Scalars["ID"]["input"]>>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
 export type Query = {
   __typename?: "Query";
   document: Array<Document>;
@@ -337,10 +282,6 @@ export type Query = {
   entity_aggregated: Array<Entity_Aggregated>;
   entity_by_id?: Maybe<Entity>;
   entity_by_version?: Maybe<Version_Entity>;
-  user: Array<User>;
-  user_aggregated: Array<User_Aggregated>;
-  user_by_id?: Maybe<User>;
-  user_by_version?: Maybe<Version_User>;
 };
 
 export type QueryDocumentArgs = {
@@ -459,42 +400,17 @@ export type QueryEntity_By_VersionArgs = {
   version: Scalars["String"]["input"];
 };
 
-export type QueryUserArgs = {
-  filter?: InputMaybe<User_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type QueryUser_AggregatedArgs = {
-  filter?: InputMaybe<User_Filter>;
-  groupBy?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type QueryUser_By_IdArgs = {
-  id: Scalars["ID"]["input"];
-  version?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryUser_By_VersionArgs = {
-  id: Scalars["ID"]["input"];
-  version: Scalars["String"]["input"];
-};
-
 export type Subscription = {
   __typename?: "Subscription";
+  directus_users_mutated?: Maybe<Directus_Users_Mutated>;
   documentCategory_mutated?: Maybe<DocumentCategory_Mutated>;
   documentItem_mutated?: Maybe<DocumentItem_Mutated>;
   document_mutated?: Maybe<Document_Mutated>;
   entity_mutated?: Maybe<Entity_Mutated>;
-  user_mutated?: Maybe<User_Mutated>;
+};
+
+export type SubscriptionDirectus_Users_MutatedArgs = {
+  event?: InputMaybe<EventEnum>;
 };
 
 export type SubscriptionDocumentCategory_MutatedArgs = {
@@ -510,10 +426,6 @@ export type SubscriptionDocument_MutatedArgs = {
 };
 
 export type SubscriptionEntity_MutatedArgs = {
-  event?: InputMaybe<EventEnum>;
-};
-
-export type SubscriptionUser_MutatedArgs = {
   event?: InputMaybe<EventEnum>;
 };
 
@@ -533,6 +445,36 @@ export type Count_Functions = {
   count?: Maybe<Scalars["Int"]["output"]>;
 };
 
+export type Create_Directus_Users_Input = {
+  appearance?: InputMaybe<Scalars["String"]["input"]>;
+  auth_data?: InputMaybe<Scalars["JSON"]["input"]>;
+  avatar?: InputMaybe<Scalars["String"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  email_notifications?: InputMaybe<Scalars["Boolean"]["input"]>;
+  external_identifier?: InputMaybe<Scalars["String"]["input"]>;
+  first_name?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  language?: InputMaybe<Scalars["String"]["input"]>;
+  last_access?: InputMaybe<Scalars["Date"]["input"]>;
+  last_name?: InputMaybe<Scalars["String"]["input"]>;
+  last_page?: InputMaybe<Scalars["String"]["input"]>;
+  location?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["Hash"]["input"]>;
+  policies?: InputMaybe<Scalars["String"]["input"]>;
+  provider?: InputMaybe<Scalars["String"]["input"]>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  tags?: InputMaybe<Scalars["JSON"]["input"]>;
+  tfa_secret?: InputMaybe<Scalars["Hash"]["input"]>;
+  theme_dark?: InputMaybe<Scalars["String"]["input"]>;
+  theme_dark_overrides?: InputMaybe<Scalars["JSON"]["input"]>;
+  theme_light?: InputMaybe<Scalars["String"]["input"]>;
+  theme_light_overrides?: InputMaybe<Scalars["JSON"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+  token?: InputMaybe<Scalars["Hash"]["input"]>;
+};
+
 export type Create_DocumentCategory_Input = {
   code?: InputMaybe<Scalars["String"]["input"]>;
   date_created?: InputMaybe<Scalars["Date"]["input"]>;
@@ -542,8 +484,8 @@ export type Create_DocumentCategory_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Create_Directus_Users_Input>;
+  user_updated?: InputMaybe<Create_Directus_Users_Input>;
 };
 
 export type Create_DocumentItem_Input = {
@@ -559,8 +501,8 @@ export type Create_DocumentItem_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Create_Directus_Users_Input>;
+  user_updated?: InputMaybe<Create_Directus_Users_Input>;
   visited?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -577,8 +519,8 @@ export type Create_Document_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Create_Directus_Users_Input>;
+  user_updated?: InputMaybe<Create_Directus_Users_Input>;
 };
 
 export type Create_Entity_Input = {
@@ -594,27 +536,10 @@ export type Create_Entity_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user?: InputMaybe<Create_User_Input>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Create_Directus_Users_Input>;
+  user_updated?: InputMaybe<Create_Directus_Users_Input>;
   weight?: InputMaybe<Scalars["Float"]["input"]>;
-};
-
-export type Create_User_Input = {
-  date_created?: InputMaybe<Scalars["Date"]["input"]>;
-  date_updated?: InputMaybe<Scalars["Date"]["input"]>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  entities?: InputMaybe<Array<InputMaybe<Create_Entity_Input>>>;
-  firstName?: InputMaybe<Scalars["String"]["input"]>;
-  id?: InputMaybe<Scalars["ID"]["input"]>;
-  lastName?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["Hash"]["input"]>;
-  phone?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Scalars["Int"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
-  username?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type Date_Filter_Operators = {
@@ -669,6 +594,88 @@ export type Delete_One = {
   id: Scalars["ID"]["output"];
 };
 
+export type Directus_Users = {
+  __typename?: "directus_users";
+  appearance?: Maybe<Scalars["String"]["output"]>;
+  auth_data?: Maybe<Scalars["JSON"]["output"]>;
+  auth_data_func?: Maybe<Count_Functions>;
+  avatar?: Maybe<Scalars["String"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  email_notifications?: Maybe<Scalars["Boolean"]["output"]>;
+  external_identifier?: Maybe<Scalars["String"]["output"]>;
+  first_name?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["ID"]["output"];
+  language?: Maybe<Scalars["String"]["output"]>;
+  last_access?: Maybe<Scalars["Date"]["output"]>;
+  last_access_func?: Maybe<Datetime_Functions>;
+  last_name?: Maybe<Scalars["String"]["output"]>;
+  last_page?: Maybe<Scalars["String"]["output"]>;
+  location?: Maybe<Scalars["String"]["output"]>;
+  password?: Maybe<Scalars["Hash"]["output"]>;
+  policies?: Maybe<Scalars["String"]["output"]>;
+  policies_func?: Maybe<Count_Functions>;
+  provider?: Maybe<Scalars["String"]["output"]>;
+  role?: Maybe<Scalars["String"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  tags?: Maybe<Scalars["JSON"]["output"]>;
+  tags_func?: Maybe<Count_Functions>;
+  tfa_secret?: Maybe<Scalars["Hash"]["output"]>;
+  theme_dark?: Maybe<Scalars["String"]["output"]>;
+  theme_dark_overrides?: Maybe<Scalars["JSON"]["output"]>;
+  theme_dark_overrides_func?: Maybe<Count_Functions>;
+  theme_light?: Maybe<Scalars["String"]["output"]>;
+  theme_light_overrides?: Maybe<Scalars["JSON"]["output"]>;
+  theme_light_overrides_func?: Maybe<Count_Functions>;
+  title?: Maybe<Scalars["String"]["output"]>;
+  token?: Maybe<Scalars["Hash"]["output"]>;
+};
+
+export type Directus_Users_Filter = {
+  _and?: InputMaybe<Array<InputMaybe<Directus_Users_Filter>>>;
+  _or?: InputMaybe<Array<InputMaybe<Directus_Users_Filter>>>;
+  appearance?: InputMaybe<String_Filter_Operators>;
+  auth_data?: InputMaybe<String_Filter_Operators>;
+  auth_data_func?: InputMaybe<Count_Function_Filter_Operators>;
+  avatar?: InputMaybe<String_Filter_Operators>;
+  description?: InputMaybe<String_Filter_Operators>;
+  email?: InputMaybe<String_Filter_Operators>;
+  email_notifications?: InputMaybe<Boolean_Filter_Operators>;
+  external_identifier?: InputMaybe<String_Filter_Operators>;
+  first_name?: InputMaybe<String_Filter_Operators>;
+  id?: InputMaybe<String_Filter_Operators>;
+  language?: InputMaybe<String_Filter_Operators>;
+  last_access?: InputMaybe<Date_Filter_Operators>;
+  last_access_func?: InputMaybe<Datetime_Function_Filter_Operators>;
+  last_name?: InputMaybe<String_Filter_Operators>;
+  last_page?: InputMaybe<String_Filter_Operators>;
+  location?: InputMaybe<String_Filter_Operators>;
+  password?: InputMaybe<Hash_Filter_Operators>;
+  policies?: InputMaybe<String_Filter_Operators>;
+  policies_func?: InputMaybe<Count_Function_Filter_Operators>;
+  provider?: InputMaybe<String_Filter_Operators>;
+  role?: InputMaybe<String_Filter_Operators>;
+  status?: InputMaybe<String_Filter_Operators>;
+  tags?: InputMaybe<String_Filter_Operators>;
+  tags_func?: InputMaybe<Count_Function_Filter_Operators>;
+  tfa_secret?: InputMaybe<Hash_Filter_Operators>;
+  theme_dark?: InputMaybe<String_Filter_Operators>;
+  theme_dark_overrides?: InputMaybe<String_Filter_Operators>;
+  theme_dark_overrides_func?: InputMaybe<Count_Function_Filter_Operators>;
+  theme_light?: InputMaybe<String_Filter_Operators>;
+  theme_light_overrides?: InputMaybe<String_Filter_Operators>;
+  theme_light_overrides_func?: InputMaybe<Count_Function_Filter_Operators>;
+  title?: InputMaybe<String_Filter_Operators>;
+  token?: InputMaybe<Hash_Filter_Operators>;
+};
+
+export type Directus_Users_Mutated = {
+  __typename?: "directus_users_mutated";
+  data?: Maybe<Directus_Users>;
+  event?: Maybe<EventEnum>;
+  key: Scalars["ID"]["output"];
+};
+
 export type Document = {
   __typename?: "document";
   date?: Maybe<Scalars["Date"]["output"]>;
@@ -687,8 +694,8 @@ export type Document = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Directus_Users>;
+  user_updated?: Maybe<Directus_Users>;
 };
 
 export type DocumentDocumentCategoryArgs = {
@@ -718,6 +725,24 @@ export type DocumentItemsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
 };
 
+export type DocumentUser_CreatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type DocumentUser_UpdatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
 export type DocumentCategory = {
   __typename?: "documentCategory";
   code?: Maybe<Scalars["String"]["output"]>;
@@ -731,12 +756,30 @@ export type DocumentCategory = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Directus_Users>;
+  user_updated?: Maybe<Directus_Users>;
 };
 
 export type DocumentCategoryDocumentsArgs = {
   filter?: InputMaybe<Document_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type DocumentCategoryUser_CreatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type DocumentCategoryUser_UpdatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   offset?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
@@ -791,8 +834,8 @@ export type DocumentCategory_Filter = {
   sort?: InputMaybe<Number_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   title?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<String_Filter_Operators>;
-  user_updated?: InputMaybe<String_Filter_Operators>;
+  user_created?: InputMaybe<Directus_Users_Filter>;
+  user_updated?: InputMaybe<Directus_Users_Filter>;
 };
 
 export type DocumentCategory_Mutated = {
@@ -819,13 +862,31 @@ export type DocumentItem = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Directus_Users>;
+  user_updated?: Maybe<Directus_Users>;
   visited?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type DocumentItemDocumentArgs = {
   filter?: InputMaybe<Document_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type DocumentItemUser_CreatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type DocumentItemUser_UpdatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   offset?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
@@ -890,8 +951,8 @@ export type DocumentItem_Filter = {
   sort?: InputMaybe<Number_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   title?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<String_Filter_Operators>;
-  user_updated?: InputMaybe<String_Filter_Operators>;
+  user_created?: InputMaybe<Directus_Users_Filter>;
+  user_updated?: InputMaybe<Directus_Users_Filter>;
   visited?: InputMaybe<Boolean_Filter_Operators>;
 };
 
@@ -959,8 +1020,8 @@ export type Document_Filter = {
   sort?: InputMaybe<Number_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   title?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<String_Filter_Operators>;
-  user_updated?: InputMaybe<String_Filter_Operators>;
+  user_created?: InputMaybe<Directus_Users_Filter>;
+  user_updated?: InputMaybe<Directus_Users_Filter>;
 };
 
 export type Document_Mutated = {
@@ -987,9 +1048,9 @@ export type Entity = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user?: Maybe<User>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Directus_Users>;
+  user_updated?: Maybe<Directus_Users>;
   weight?: Maybe<Scalars["Float"]["output"]>;
 };
 
@@ -1002,8 +1063,17 @@ export type EntityDocumentsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
 };
 
-export type EntityUserArgs = {
-  filter?: InputMaybe<User_Filter>;
+export type EntityUser_CreatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+};
+
+export type EntityUser_UpdatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   offset?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
@@ -1071,9 +1141,9 @@ export type Entity_Filter = {
   sort?: InputMaybe<Number_Filter_Operators>;
   status?: InputMaybe<String_Filter_Operators>;
   title?: InputMaybe<String_Filter_Operators>;
-  user?: InputMaybe<User_Filter>;
-  user_created?: InputMaybe<String_Filter_Operators>;
-  user_updated?: InputMaybe<String_Filter_Operators>;
+  user?: InputMaybe<String_Filter_Operators>;
+  user_created?: InputMaybe<Directus_Users_Filter>;
+  user_updated?: InputMaybe<Directus_Users_Filter>;
   weight?: InputMaybe<Number_Filter_Operators>;
 };
 
@@ -1134,6 +1204,36 @@ export type String_Filter_Operators = {
   _starts_with?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type Update_Directus_Users_Input = {
+  appearance?: InputMaybe<Scalars["String"]["input"]>;
+  auth_data?: InputMaybe<Scalars["JSON"]["input"]>;
+  avatar?: InputMaybe<Scalars["String"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  email_notifications?: InputMaybe<Scalars["Boolean"]["input"]>;
+  external_identifier?: InputMaybe<Scalars["String"]["input"]>;
+  first_name?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  language?: InputMaybe<Scalars["String"]["input"]>;
+  last_access?: InputMaybe<Scalars["Date"]["input"]>;
+  last_name?: InputMaybe<Scalars["String"]["input"]>;
+  last_page?: InputMaybe<Scalars["String"]["input"]>;
+  location?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["Hash"]["input"]>;
+  policies?: InputMaybe<Scalars["String"]["input"]>;
+  provider?: InputMaybe<Scalars["String"]["input"]>;
+  role?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  tags?: InputMaybe<Scalars["JSON"]["input"]>;
+  tfa_secret?: InputMaybe<Scalars["Hash"]["input"]>;
+  theme_dark?: InputMaybe<Scalars["String"]["input"]>;
+  theme_dark_overrides?: InputMaybe<Scalars["JSON"]["input"]>;
+  theme_light?: InputMaybe<Scalars["String"]["input"]>;
+  theme_light_overrides?: InputMaybe<Scalars["JSON"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+  token?: InputMaybe<Scalars["Hash"]["input"]>;
+};
+
 export type Update_DocumentCategory_Input = {
   code?: InputMaybe<Scalars["String"]["input"]>;
   date_created?: InputMaybe<Scalars["Date"]["input"]>;
@@ -1143,8 +1243,8 @@ export type Update_DocumentCategory_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Update_Directus_Users_Input>;
+  user_updated?: InputMaybe<Update_Directus_Users_Input>;
 };
 
 export type Update_DocumentItem_Input = {
@@ -1160,8 +1260,8 @@ export type Update_DocumentItem_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Update_Directus_Users_Input>;
+  user_updated?: InputMaybe<Update_Directus_Users_Input>;
   visited?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -1178,8 +1278,8 @@ export type Update_Document_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Update_Directus_Users_Input>;
+  user_updated?: InputMaybe<Update_Directus_Users_Input>;
 };
 
 export type Update_Entity_Input = {
@@ -1195,123 +1295,10 @@ export type Update_Entity_Input = {
   sort?: InputMaybe<Scalars["Int"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
-  user?: InputMaybe<Update_User_Input>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
+  user?: InputMaybe<Scalars["String"]["input"]>;
+  user_created?: InputMaybe<Update_Directus_Users_Input>;
+  user_updated?: InputMaybe<Update_Directus_Users_Input>;
   weight?: InputMaybe<Scalars["Float"]["input"]>;
-};
-
-export type Update_User_Input = {
-  date_created?: InputMaybe<Scalars["Date"]["input"]>;
-  date_updated?: InputMaybe<Scalars["Date"]["input"]>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  entities?: InputMaybe<Array<InputMaybe<Update_Entity_Input>>>;
-  firstName?: InputMaybe<Scalars["String"]["input"]>;
-  id?: InputMaybe<Scalars["ID"]["input"]>;
-  lastName?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["Hash"]["input"]>;
-  phone?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Scalars["Int"]["input"]>;
-  status?: InputMaybe<Scalars["String"]["input"]>;
-  user_created?: InputMaybe<Scalars["String"]["input"]>;
-  user_updated?: InputMaybe<Scalars["String"]["input"]>;
-  username?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type User = {
-  __typename?: "user";
-  date_created?: Maybe<Scalars["Date"]["output"]>;
-  date_created_func?: Maybe<Datetime_Functions>;
-  date_updated?: Maybe<Scalars["Date"]["output"]>;
-  date_updated_func?: Maybe<Datetime_Functions>;
-  email?: Maybe<Scalars["String"]["output"]>;
-  entities?: Maybe<Array<Maybe<Entity>>>;
-  entities_func?: Maybe<Count_Functions>;
-  firstName?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["ID"]["output"];
-  lastName?: Maybe<Scalars["String"]["output"]>;
-  password?: Maybe<Scalars["Hash"]["output"]>;
-  phone?: Maybe<Scalars["String"]["output"]>;
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
-  username?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type UserEntitiesArgs = {
-  filter?: InputMaybe<Entity_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type User_Aggregated = {
-  __typename?: "user_aggregated";
-  avg?: Maybe<User_Aggregated_Fields>;
-  avgDistinct?: Maybe<User_Aggregated_Fields>;
-  count?: Maybe<User_Aggregated_Count>;
-  countAll?: Maybe<Scalars["Int"]["output"]>;
-  countDistinct?: Maybe<User_Aggregated_Count>;
-  group?: Maybe<Scalars["JSON"]["output"]>;
-  max?: Maybe<User_Aggregated_Fields>;
-  min?: Maybe<User_Aggregated_Fields>;
-  sum?: Maybe<User_Aggregated_Fields>;
-  sumDistinct?: Maybe<User_Aggregated_Fields>;
-};
-
-export type User_Aggregated_Count = {
-  __typename?: "user_aggregated_count";
-  date_created?: Maybe<Scalars["Int"]["output"]>;
-  date_updated?: Maybe<Scalars["Int"]["output"]>;
-  email?: Maybe<Scalars["Int"]["output"]>;
-  entities?: Maybe<Scalars["Int"]["output"]>;
-  firstName?: Maybe<Scalars["Int"]["output"]>;
-  id?: Maybe<Scalars["Int"]["output"]>;
-  lastName?: Maybe<Scalars["Int"]["output"]>;
-  password?: Maybe<Scalars["Int"]["output"]>;
-  phone?: Maybe<Scalars["Int"]["output"]>;
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["Int"]["output"]>;
-  user_created?: Maybe<Scalars["Int"]["output"]>;
-  user_updated?: Maybe<Scalars["Int"]["output"]>;
-  username?: Maybe<Scalars["Int"]["output"]>;
-};
-
-export type User_Aggregated_Fields = {
-  __typename?: "user_aggregated_fields";
-  sort?: Maybe<Scalars["Float"]["output"]>;
-};
-
-export type User_Filter = {
-  _and?: InputMaybe<Array<InputMaybe<User_Filter>>>;
-  _or?: InputMaybe<Array<InputMaybe<User_Filter>>>;
-  date_created?: InputMaybe<Date_Filter_Operators>;
-  date_created_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  date_updated?: InputMaybe<Date_Filter_Operators>;
-  date_updated_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  email?: InputMaybe<String_Filter_Operators>;
-  entities?: InputMaybe<Entity_Filter>;
-  entities_func?: InputMaybe<Count_Function_Filter_Operators>;
-  firstName?: InputMaybe<String_Filter_Operators>;
-  id?: InputMaybe<String_Filter_Operators>;
-  lastName?: InputMaybe<String_Filter_Operators>;
-  password?: InputMaybe<Hash_Filter_Operators>;
-  phone?: InputMaybe<String_Filter_Operators>;
-  sort?: InputMaybe<Number_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<String_Filter_Operators>;
-  user_updated?: InputMaybe<String_Filter_Operators>;
-  username?: InputMaybe<String_Filter_Operators>;
-};
-
-export type User_Mutated = {
-  __typename?: "user_mutated";
-  data?: Maybe<User>;
-  event?: Maybe<EventEnum>;
-  key: Scalars["ID"]["output"];
 };
 
 export type Version_Document = {
@@ -1328,8 +1315,8 @@ export type Version_Document = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Scalars["JSON"]["output"]>;
+  user_updated?: Maybe<Scalars["JSON"]["output"]>;
 };
 
 export type Version_DocumentCategory = {
@@ -1342,8 +1329,8 @@ export type Version_DocumentCategory = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Scalars["JSON"]["output"]>;
+  user_updated?: Maybe<Scalars["JSON"]["output"]>;
 };
 
 export type Version_DocumentItem = {
@@ -1360,8 +1347,8 @@ export type Version_DocumentItem = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Scalars["JSON"]["output"]>;
+  user_updated?: Maybe<Scalars["JSON"]["output"]>;
   visited?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
@@ -1379,28 +1366,10 @@ export type Version_Entity = {
   sort?: Maybe<Scalars["Int"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
-  user?: Maybe<Scalars["JSON"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
+  user?: Maybe<Scalars["String"]["output"]>;
+  user_created?: Maybe<Scalars["JSON"]["output"]>;
+  user_updated?: Maybe<Scalars["JSON"]["output"]>;
   weight?: Maybe<Scalars["Float"]["output"]>;
-};
-
-export type Version_User = {
-  __typename?: "version_user";
-  date_created?: Maybe<Scalars["Date"]["output"]>;
-  date_updated?: Maybe<Scalars["Date"]["output"]>;
-  email?: Maybe<Scalars["String"]["output"]>;
-  entities?: Maybe<Scalars["JSON"]["output"]>;
-  firstName?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["ID"]["output"]>;
-  lastName?: Maybe<Scalars["String"]["output"]>;
-  password?: Maybe<Scalars["Hash"]["output"]>;
-  phone?: Maybe<Scalars["String"]["output"]>;
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Scalars["String"]["output"]>;
-  user_updated?: Maybe<Scalars["String"]["output"]>;
-  username?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type EntityFragment = {
@@ -1408,8 +1377,6 @@ export type EntityFragment = {
   id: string;
   status?: string | null;
   sort?: number | null;
-  user_created?: string | null;
-  user_updated?: string | null;
   date_created?: any | null;
   date_updated?: any | null;
   title?: string | null;
@@ -1419,6 +1386,18 @@ export type EntityFragment = {
   race?: string | null;
   height?: number | null;
   weight?: number | null;
+  user_created?: {
+    __typename?: "directus_users";
+    id: string;
+    first_name?: string | null;
+    last_name?: string | null;
+  } | null;
+  user_updated?: {
+    __typename?: "directus_users";
+    id: string;
+    first_name?: string | null;
+    last_name?: string | null;
+  } | null;
 };
 
 export type CreateEntityMutationVariables = Exact<{
@@ -1458,8 +1437,6 @@ export type GetEntitiesDataQuery = {
     id: string;
     status?: string | null;
     sort?: number | null;
-    user_created?: string | null;
-    user_updated?: string | null;
     date_created?: any | null;
     date_updated?: any | null;
     title?: string | null;
@@ -1469,6 +1446,18 @@ export type GetEntitiesDataQuery = {
     race?: string | null;
     height?: number | null;
     weight?: number | null;
+    user_created?: {
+      __typename?: "directus_users";
+      id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    } | null;
+    user_updated?: {
+      __typename?: "directus_users";
+      id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    } | null;
   }>;
 };
 
@@ -1483,8 +1472,6 @@ export type GetSingleEntityQuery = {
     id: string;
     status?: string | null;
     sort?: number | null;
-    user_created?: string | null;
-    user_updated?: string | null;
     date_created?: any | null;
     date_updated?: any | null;
     title?: string | null;
@@ -1494,6 +1481,18 @@ export type GetSingleEntityQuery = {
     race?: string | null;
     height?: number | null;
     weight?: number | null;
+    user_created?: {
+      __typename?: "directus_users";
+      id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    } | null;
+    user_updated?: {
+      __typename?: "directus_users";
+      id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    } | null;
   }>;
 };
 
@@ -1502,8 +1501,16 @@ export const EntityFragmentDoc = gql`
     id
     status
     sort
-    user_created
-    user_updated
+    user_created {
+      id
+      first_name
+      last_name
+    }
+    user_updated {
+      id
+      first_name
+      last_name
+    }
     date_created
     date_updated
     title
