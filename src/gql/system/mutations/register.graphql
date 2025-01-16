@@ -1,0 +1,5 @@
+mutation register($data: create_directus_users_input!) {
+  create_users_item(data: $data) {
+    id
+  }
+}

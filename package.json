@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:system": "graphql-codegen --config codegen-system.ts",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

@@ -1,0 +1,9 @@
+mutation addRole($userIds: [ID]!, $roleId: ID!) {
+  update_users_items(ids: $userIds, data: { role: { id: $roleId } }){
+    id
+    role {
+        id
+        name
+    }
+  }
+}
