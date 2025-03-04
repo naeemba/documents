@@ -1,5 +1,6 @@
 "use client";
 
+import { login } from "@/app/(auth)/actions";
 import TextField from "@/components/form-fields/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +11,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { useActionState } from "react";
+import { LoginFormActionState } from "./types";
+import { useRouter } from "next/navigation";
+
+const initialState: LoginFormActionState = {};
 
 const LoginForm = () => {
+  const router = useRouter();
+  const [formState, formAction, isPending] = useActionState(
+    login,
+    initialState,
+  );
+
+  if ("success" in formState && formState.success) {
+    router.push("/");
+  }
   return (
     <div className="flex w-full h-full items-center justify-center">
       <Card>
@@ -19,11 +34,21 @@ const LoginForm = () => {
           <CardTitle>Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
-            <TextField label="Username" name="username" />
-            <TextField label="Password" name="password" type="password" />
-            <Button className="" type="submit">
-              Login
+          <form className="space-y-4" action={formAction}>
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              errors={"email" in formState ? formState.email : undefined}
+            />
+            <TextField
+              label="Password"
+              name="password"
+              type="password"
+              errors={"password" in formState ? formState.password : undefined}
+            />
+            <Button className="" type="submit" disabled={isPending}>
+              {isPending ? "Logging in..." : "Login"}
             </Button>
           </form>
         </CardContent>

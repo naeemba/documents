@@ -8,7 +8,7 @@ type Props = {
   name: string;
   defaultValue?: string | null;
   errors?: string[];
-  type?: "password" | "text";
+  type?: "password" | "text" | "email";
 };
 
 const TextField = (props: Props) => {

@@ -43,7 +43,10 @@ export const register = async (
   }
 };
 
-export const login = async (_: LoginFormActionState, data: FormData) => {
+export const login = async (
+  _: LoginFormActionState,
+  data: FormData,
+): Promise<LoginFormActionState> => {
   try {
     await signIn("credentials", data);
     return { success: true };
