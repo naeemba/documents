@@ -2,12 +2,17 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import { AppSidebar } from "@/components/side-bar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { auth, signIn } from "@/lib/auth";
 
-const ProtectedLayout = ({
+const ProtectedLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const session = await auth();
+  if (!session?.user) {
+    return signIn();
+  }
   return (
     <SidebarProvider>
       <AppSidebar />

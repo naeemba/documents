@@ -1,0 +1,8 @@
+query getUserInfo($email: String!) {
+    users(filter: { email: { _eq: $email }}) {
+        id
+        email
+        first_name
+        last_name
+    }
+}

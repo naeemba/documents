@@ -1829,7 +1829,6 @@ export type QueryWebhooks_By_IdArgs = {
 
 export type Subscription = {
   __typename?: "Subscription";
-  category_mutated?: Maybe<Category_Mutated>;
   directus_access_mutated?: Maybe<Directus_Access_Mutated>;
   directus_activity_mutated?: Maybe<Directus_Activity_Mutated>;
   directus_comments_mutated?: Maybe<Directus_Comments_Mutated>;
@@ -1855,13 +1854,7 @@ export type Subscription = {
   documentItem_mutated?: Maybe<DocumentItem_Mutated>;
   document_mutated?: Maybe<Document_Mutated>;
   entity_mutated?: Maybe<Entity_Mutated>;
-  post_category_mutated?: Maybe<Post_Category_Mutated>;
-  post_mutated?: Maybe<Post_Mutated>;
   user_mutated?: Maybe<User_Mutated>;
-};
-
-export type SubscriptionCategory_MutatedArgs = {
-  event?: InputMaybe<EventEnum>;
 };
 
 export type SubscriptionDirectus_Access_MutatedArgs = {
@@ -1964,14 +1957,6 @@ export type SubscriptionEntity_MutatedArgs = {
   event?: InputMaybe<EventEnum>;
 };
 
-export type SubscriptionPost_Category_MutatedArgs = {
-  event?: InputMaybe<EventEnum>;
-};
-
-export type SubscriptionPost_MutatedArgs = {
-  event?: InputMaybe<EventEnum>;
-};
-
 export type SubscriptionUser_MutatedArgs = {
   event?: InputMaybe<EventEnum>;
 };
@@ -2009,73 +1994,6 @@ export type Boolean_Filter_Operators = {
   _neq?: InputMaybe<Scalars["Boolean"]["input"]>;
   _nnull?: InputMaybe<Scalars["Boolean"]["input"]>;
   _null?: InputMaybe<Scalars["Boolean"]["input"]>;
-};
-
-export type Category = {
-  __typename?: "category";
-  date_created?: Maybe<Scalars["Date"]["output"]>;
-  date_created_func?: Maybe<Datetime_Functions>;
-  date_updated?: Maybe<Scalars["Date"]["output"]>;
-  date_updated_func?: Maybe<Datetime_Functions>;
-  id: Scalars["ID"]["output"];
-  posts?: Maybe<Array<Maybe<Post_Category>>>;
-  posts_func?: Maybe<Count_Functions>;
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Directus_Users>;
-  user_updated?: Maybe<Directus_Users>;
-};
-
-export type CategoryPostsArgs = {
-  filter?: InputMaybe<Post_Category_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type CategoryUser_CreatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type CategoryUser_UpdatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Category_Filter = {
-  _and?: InputMaybe<Array<InputMaybe<Category_Filter>>>;
-  _or?: InputMaybe<Array<InputMaybe<Category_Filter>>>;
-  date_created?: InputMaybe<Date_Filter_Operators>;
-  date_created_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  date_updated?: InputMaybe<Date_Filter_Operators>;
-  date_updated_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  id?: InputMaybe<String_Filter_Operators>;
-  posts?: InputMaybe<Post_Category_Filter>;
-  posts_func?: InputMaybe<Count_Function_Filter_Operators>;
-  sort?: InputMaybe<Number_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  title?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<Directus_Users_Filter>;
-  user_updated?: InputMaybe<Directus_Users_Filter>;
-};
-
-export type Category_Mutated = {
-  __typename?: "category_mutated";
-  data?: Maybe<Category>;
-  event?: Maybe<EventEnum>;
-  key: Scalars["ID"]["output"];
 };
 
 export type Count_Function_Filter_Operators = {
@@ -5049,149 +4967,6 @@ export type Policy_Me_Globals_Type = {
   enforce_tfa?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
-export type Post = {
-  __typename?: "post";
-  categories?: Maybe<Array<Maybe<Post_Category>>>;
-  categories_func?: Maybe<Count_Functions>;
-  date_created?: Maybe<Scalars["Date"]["output"]>;
-  date_created_func?: Maybe<Datetime_Functions>;
-  date_updated?: Maybe<Scalars["Date"]["output"]>;
-  date_updated_func?: Maybe<Datetime_Functions>;
-  id: Scalars["ID"]["output"];
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  title?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Directus_Users>;
-  user_updated?: Maybe<Directus_Users>;
-};
-
-export type PostCategoriesArgs = {
-  filter?: InputMaybe<Post_Category_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type PostUser_CreatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type PostUser_UpdatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Post_Category = {
-  __typename?: "post_category";
-  category?: Maybe<Category>;
-  date_created?: Maybe<Scalars["Date"]["output"]>;
-  date_created_func?: Maybe<Datetime_Functions>;
-  date_updated?: Maybe<Scalars["Date"]["output"]>;
-  date_updated_func?: Maybe<Datetime_Functions>;
-  id: Scalars["ID"]["output"];
-  is_main?: Maybe<Scalars["Boolean"]["output"]>;
-  post?: Maybe<Post>;
-  sort?: Maybe<Scalars["Int"]["output"]>;
-  status?: Maybe<Scalars["String"]["output"]>;
-  user_created?: Maybe<Directus_Users>;
-  user_updated?: Maybe<Directus_Users>;
-};
-
-export type Post_CategoryCategoryArgs = {
-  filter?: InputMaybe<Category_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Post_CategoryPostArgs = {
-  filter?: InputMaybe<Post_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Post_CategoryUser_CreatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Post_CategoryUser_UpdatedArgs = {
-  filter?: InputMaybe<Directus_Users_Filter>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  offset?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  search?: InputMaybe<Scalars["String"]["input"]>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-};
-
-export type Post_Category_Filter = {
-  _and?: InputMaybe<Array<InputMaybe<Post_Category_Filter>>>;
-  _or?: InputMaybe<Array<InputMaybe<Post_Category_Filter>>>;
-  category?: InputMaybe<Category_Filter>;
-  date_created?: InputMaybe<Date_Filter_Operators>;
-  date_created_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  date_updated?: InputMaybe<Date_Filter_Operators>;
-  date_updated_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  id?: InputMaybe<String_Filter_Operators>;
-  is_main?: InputMaybe<Boolean_Filter_Operators>;
-  post?: InputMaybe<Post_Filter>;
-  sort?: InputMaybe<Number_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<Directus_Users_Filter>;
-  user_updated?: InputMaybe<Directus_Users_Filter>;
-};
-
-export type Post_Category_Mutated = {
-  __typename?: "post_category_mutated";
-  data?: Maybe<Post_Category>;
-  event?: Maybe<EventEnum>;
-  key: Scalars["ID"]["output"];
-};
-
-export type Post_Filter = {
-  _and?: InputMaybe<Array<InputMaybe<Post_Filter>>>;
-  _or?: InputMaybe<Array<InputMaybe<Post_Filter>>>;
-  categories?: InputMaybe<Post_Category_Filter>;
-  categories_func?: InputMaybe<Count_Function_Filter_Operators>;
-  date_created?: InputMaybe<Date_Filter_Operators>;
-  date_created_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  date_updated?: InputMaybe<Date_Filter_Operators>;
-  date_updated_func?: InputMaybe<Datetime_Function_Filter_Operators>;
-  id?: InputMaybe<String_Filter_Operators>;
-  sort?: InputMaybe<Number_Filter_Operators>;
-  status?: InputMaybe<String_Filter_Operators>;
-  title?: InputMaybe<String_Filter_Operators>;
-  user_created?: InputMaybe<Directus_Users_Filter>;
-  user_updated?: InputMaybe<Directus_Users_Filter>;
-};
-
-export type Post_Mutated = {
-  __typename?: "post_mutated";
-  data?: Maybe<Post>;
-  event?: Maybe<EventEnum>;
-  key: Scalars["ID"]["output"];
-};
-
 export type Server_Info = {
   __typename?: "server_info";
   project?: Maybe<Server_Info_Project>;
@@ -5691,6 +5466,21 @@ export type Users_Me_Tfa_Generate_Data = {
   secret?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type GetUserInfoQueryVariables = Exact<{
+  email: Scalars["String"]["input"];
+}>;
+
+export type GetUserInfoQuery = {
+  __typename?: "Query";
+  users: Array<{
+    __typename?: "directus_users";
+    id: string;
+    email?: string | null;
+    first_name?: string | null;
+    last_name?: string | null;
+  }>;
+};
+
 export type LoginMutationVariables = Exact<{
   email: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
@@ -5745,6 +5535,16 @@ export type AddRoleMutation = {
   }>;
 };
 
+export const GetUserInfoDocument = gql`
+  query getUserInfo($email: String!) {
+    users(filter: { email: { _eq: $email } }) {
+      id
+      email
+      first_name
+      last_name
+    }
+  }
+`;
 export const LoginDocument = gql`
   mutation login($email: String!, $password: String!) {
     auth_login(email: $email, password: $password) {
@@ -5801,6 +5601,21 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
+    getUserInfo(
+      variables: GetUserInfoQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetUserInfoQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserInfoQuery>(GetUserInfoDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "getUserInfo",
+        "query",
+        variables,
+      );
+    },
     login(
       variables: LoginMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
