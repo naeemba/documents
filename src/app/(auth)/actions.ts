@@ -28,17 +28,22 @@ export const register = async (
       return parsed.error.flatten().fieldErrors;
     }
 
-    await systemSdk.register({
-      data: {
-        first_name: parsed.data.firstName,
-        last_name: parsed.data.lastName,
-        email: parsed.data.email,
-        password: parsed.data.password,
+    await systemSdk.register(
+      {
+        data: {
+          first_name: parsed.data.firstName,
+          last_name: parsed.data.lastName,
+          email: parsed.data.email,
+          password: parsed.data.password,
+        },
       },
-    });
+      {
+        Authorization: `Bearer ${process.env.APP_CONFIG_GRAPHQL_SYSTEM_SCHEMA_TOKEN}`,
+      },
+    );
     return { success: true };
-  } catch (error) {
-    console.log({ error });
+  } catch (e) {
+    console.log({ e });
     return { email: ["Email already exists"] };
   }
 };
@@ -52,6 +57,6 @@ export const login = async (
     return { success: true };
   } catch (error) {
     console.log({ error });
-    return { error: "Invalid Credentials" };
+    throw error;
   }
 };

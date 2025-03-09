@@ -11,22 +11,26 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { RegisterFormActionState } from "./types";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { register } from "@/app/(auth)/actions";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const initialState: RegisterFormActionState = {};
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [formState, formAction, isPending] = useActionState(
     register,
     initialState,
   );
 
-  if ("success" in formState && formState.success) {
-    router.push("/login");
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if ("success" in formState && formState.success) {
+      router.push("/login");
+    }
+  }, [router, formState]);
+
   return (
     <div className="flex w-full h-full items-center justify-center">
       <Card>
@@ -59,7 +63,7 @@ const RegisterForm = () => {
               type="password"
               errors={"password" in formState ? formState.password : undefined}
             />
-            <Button className="" type="submit">
+            <Button type="submit" disabled={isPending} size="sm">
               {isPending ? "Registering..." : "Register"}
             </Button>
           </form>

@@ -8,8 +8,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { PowerIcon } from "lucide-react";
 import { items } from "./items";
 import { ModeToggle as ThemeToggle } from "@/components/theme/toggle";
+import { Button } from "../ui/button";
+import { signOut } from "@/lib/auth";
 
 export function AppSidebar() {
   return (
@@ -36,6 +39,20 @@ export function AppSidebar() {
         <SidebarMenu>
           <ThemeToggle />
         </SidebarMenu>
+        <form
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+          className="mt-2"
+        >
+          <SidebarMenu>
+            <Button variant="outline">
+              <PowerIcon className="w-6" />
+              Sign Out
+            </Button>
+          </SidebarMenu>
+        </form>
       </SidebarFooter>
     </Sidebar>
   );

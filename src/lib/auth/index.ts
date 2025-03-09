@@ -4,14 +4,14 @@ import NextAuth, { Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { redirect } from "next/navigation";
 
+interface CustomSession extends Session {
+  accessToken?: string;
+  refreshToken?: string;
+}
+
 interface CustomUser extends User {
   access_token?: string | null;
   refresh_token?: string | null;
-}
-
-interface CustomSession extends Session {
-  accessToken?: string | null;
-  refreshToken?: string | null;
 }
 
 export const options: Parameters<typeof NextAuth>[0] = {
@@ -31,19 +31,24 @@ export const options: Parameters<typeof NextAuth>[0] = {
           const loginData = await systemSdk.login({ email, password });
           console.log({ loginData });
           const { users } = await systemSdk.getUserInfo(
-            { email },
             {
-              Authorization: `Bearer ${loginData.auth_login?.access_token}`,
+              email,
             },
+            { Authorization: `Bearer ${loginData.auth_login?.access_token}` },
           );
-
           return {
             ...users[0],
             access_token: loginData.auth_login?.access_token,
             refresh_token: loginData.auth_login?.refresh_token,
           };
-        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
           console.log({ error });
+          if (
+            error.response.errors[0].extensions.code === "INVALID_CREDENTIALS"
+          ) {
+            return null;
+          }
           return null;
         }
       },
@@ -64,8 +69,10 @@ export const options: Parameters<typeof NextAuth>[0] = {
           user,
         };
       }
+      console.log("hi");
       return token;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, token }: { session: CustomSession; token: any }) {
       session.user = token.user;
       session.accessToken = token.accessToken;
@@ -79,13 +86,22 @@ export const options: Parameters<typeof NextAuth>[0] = {
       },
     }) {
       const isLoggedIn = !!auth?.user;
-      const baseUrl = process.env.NEXTAUTH_URL;
       if (!isLoggedIn) {
-        if ([`${baseUrl}/login`, `${baseUrl}/register`].includes(href)) {
+        if (
+          [
+            `${process.env.NEXTAUTH_URL}/login`,
+            `${process.env.NEXTAUTH_URL}/register`,
+          ].includes(href)
+        ) {
           return true;
         }
       } else {
-        if ([`${baseUrl}/login`, `${baseUrl}/register`].includes(href)) {
+        if (
+          [
+            `${process.env.NEXTAUTH_URL}/login`,
+            `${process.env.NEXTAUTH_URL}/register`,
+          ].includes(href)
+        ) {
           redirect("/");
         }
       }

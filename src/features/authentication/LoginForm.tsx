@@ -1,6 +1,5 @@
 "use client";
 
-import { login } from "@/app/(auth)/actions";
 import TextField from "@/components/form-fields/TextField";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,21 +11,17 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { useActionState } from "react";
+import { login } from "@/app/(auth)/actions";
 import { LoginFormActionState } from "./types";
-import { useRouter } from "next/navigation";
 
 const initialState: LoginFormActionState = {};
 
 const LoginForm = () => {
-  const router = useRouter();
   const [formState, formAction, isPending] = useActionState(
     login,
     initialState,
   );
 
-  if ("success" in formState && formState.success) {
-    router.push("/");
-  }
   return (
     <div className="flex w-full h-full items-center justify-center">
       <Card>
@@ -47,7 +42,7 @@ const LoginForm = () => {
               type="password"
               errors={"password" in formState ? formState.password : undefined}
             />
-            <Button className="" type="submit" disabled={isPending}>
+            <Button type="submit" disabled={isPending}>
               {isPending ? "Logging in..." : "Login"}
             </Button>
           </form>
