@@ -2,12 +2,17 @@
 
 import { entitySchema, FormActionState } from "@/features/entity/types";
 import sdk from "@/gql/sdk";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export const updateEntity = async (
   _: FormActionState,
   formData: FormData,
 ): Promise<FormActionState> => {
+  const session = await auth();
+  if (!session?.accessToken) {
+    return { error: "Authorization Error" };
+  }
   const id = formData.get("id") as string;
   const productionYear = formData.get("productionYear") as string;
   const weight = formData.get("weight") as string;
@@ -27,6 +32,11 @@ export const updateEntity = async (
     return data.error.flatten().fieldErrors;
   }
 
-  await sdk.updateEntity({ id, entity: data.data });
+  await sdk.updateEntity(
+    { id, entity: data.data },
+    {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  );
   redirect(`/entities/${id}`);
 };

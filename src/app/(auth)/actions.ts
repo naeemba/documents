@@ -28,7 +28,7 @@ export const register = async (
       return parsed.error.flatten().fieldErrors;
     }
 
-    await systemSdk.register(
+    const user = await systemSdk.register(
       {
         data: {
           first_name: parsed.data.firstName,
@@ -36,6 +36,19 @@ export const register = async (
           email: parsed.data.email,
           password: parsed.data.password,
         },
+      },
+      {
+        Authorization: `Bearer ${process.env.APP_CONFIG_GRAPHQL_SYSTEM_SCHEMA_TOKEN}`,
+      },
+    );
+    if (!user.create_users_item) {
+      return { email: ["Email already exists"] };
+    }
+
+    await systemSdk.addRole(
+      {
+        roleId: process.env.APP_CONFIG_GRAPHQL_CUSTOMER_ROLE_ID ?? "",
+        userIds: [user.create_users_item.id],
       },
       {
         Authorization: `Bearer ${process.env.APP_CONFIG_GRAPHQL_SYSTEM_SCHEMA_TOKEN}`,

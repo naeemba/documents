@@ -1,8 +1,13 @@
 import SingleEntity from "@/features/entity/SingleEntity";
 import sdk from "@/gql/sdk";
+import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
 
 const Entity = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const session = await auth();
+  if (!session?.accessToken) {
+    return notFound();
+  }
   const { id } = await params;
 
   if (!id) {
@@ -10,7 +15,12 @@ const Entity = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   try {
-    const data = await sdk.getSingleEntity({ id });
+    const data = await sdk.getSingleEntity(
+      { id },
+      {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    );
     if (!data.entity[0]) {
       return notFound();
     }

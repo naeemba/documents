@@ -10,6 +10,7 @@ export type FormActionState =
       race?: string[];
       height?: string[];
       weight?: string[];
+      error?: string;
     };
 
 export const entitySchema = z.object({

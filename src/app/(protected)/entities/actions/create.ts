@@ -2,12 +2,17 @@
 
 import { entitySchema, FormActionState } from "@/features/entity/types";
 import sdk from "@/gql/sdk";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export const createEntity = async (
   _: FormActionState,
   formData: FormData,
 ): Promise<FormActionState> => {
+  const session = await auth();
+  if (!session?.accessToken) {
+    return { error: "Authorization Error" };
+  }
   const productionYear = formData.get("productionYear") as string;
   const weight = formData.get("weight") as string;
   const height = formData.get("height") as string;
@@ -26,6 +31,11 @@ export const createEntity = async (
     return data.error.flatten().fieldErrors;
   }
 
-  sdk.createEntity({ entity: data.data });
+  sdk.createEntity(
+    { entity: data.data },
+    {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  );
   redirect("/entities");
 };
